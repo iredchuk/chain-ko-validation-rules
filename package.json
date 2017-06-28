@@ -1,0 +1,28 @@
+{
+  "name": "chain-ko-validation-rules",
+  "version": "1.0.0",
+  "description": "Chain knockout.js validation rules, ensuring their sequential execution",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iredchuk/chain-ko-validation-rules.git"
+  },
+  "keywords": [
+    "async",
+    "knockout",
+    "validation"
+  ],
+  "author": "iredchuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iredchuk/chain-ko-validation-rules/issues"
+  },
+  "homepage": "https://github.com/iredchuk/chain-ko-validation-rules#readme",
+  "peerDependencies": {
+    "knockout": ">=2.3.0",
+    "knockout.validation": ">=2.0.0"
+  }
+}
