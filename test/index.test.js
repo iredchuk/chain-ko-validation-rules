@@ -1,17 +1,21 @@
-import test from 'ava';
+import test from 'tape';
 import chainValidationRules from '../index';
 
 test('when pass undefined, returns undefined', t => {
+	t.plan(1);
 	const actual = chainValidationRules(undefined);
-	t.is(actual, undefined);
+	t.equal(actual, undefined);
 });
 
 test('when pass an empty array, returns undefined', t => {
+	t.plan(1);
 	const actual = chainValidationRules([]);
-	t.is(actual, undefined);
+	t.equal(actual, undefined);
 });
 
-test.cb('when pass an array containing one async rule, validate with this rule', t => {
+test('when pass an array containing one async rule, validate with this rule', t => {
+	t.plan(2);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -19,15 +23,16 @@ test.cb('when pass an array containing one async rule, validate with this rule',
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(0, undefined, result => {
-		t.is(result, true);
-		t.end();
+		t.equal(result, true);
 	});
 });
 
-test.cb('when pass an array containing one async rule, invalidate with this rule', t => {
+test('when pass an array containing one async rule, invalidate with this rule', t => {
+	t.plan(3);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -35,16 +40,17 @@ test.cb('when pass an array containing one async rule, invalidate with this rule
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(1, undefined, result => {
-		t.is(result.isValid, false);
-		t.is(result.message, 'Error message');
-		t.end();
+		t.equal(result.isValid, false);
+		t.equal(result.message, 'Error message');
 	});
 });
 
-test.cb('when pass an array containing two async rules, and both rules validate', t => {
+test('when pass an array containing two async rules, and both rules validate', t => {
+	t.plan(2);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -56,15 +62,16 @@ test.cb('when pass an array containing two async rules, and both rules validate'
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(6, undefined, result => {
-		t.is(result.isValid, true);
-		t.end();
+		t.equal(result.isValid, true);
 	});
 });
 
-test.cb('when pass an array containing two async rules, and first rule invalidates', t => {
+test('when pass an array containing two async rules, and first rule invalidates', t => {
+	t.plan(3);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -76,16 +83,17 @@ test.cb('when pass an array containing two async rules, and first rule invalidat
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(3, undefined, result => {
-		t.is(result.isValid, false);
-		t.is(result.message, 'Message 1');
-		t.end();
+		t.equal(result.isValid, false);
+		t.equal(result.message, 'Message 1');
 	});
 });
 
-test.cb('when pass an array containing two async rules, and second rule invalidates', t => {
+test('when pass an array containing two async rules, and second rule invalidates', t => {
+	t.plan(3);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -97,16 +105,17 @@ test.cb('when pass an array containing two async rules, and second rule invalida
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(4, undefined, result => {
-		t.is(result.isValid, false);
-		t.is(result.message, 'Message 2');
-		t.end();
+		t.equal(result.isValid, false);
+		t.equal(result.message, 'Message 2');
 	});
 });
 
-test.cb('when pass an array containing async and sync rules, and all rules validate', t => {
+test('when pass an array containing async and sync rules, and all rules validate', t => {
+	t.plan(2);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -123,15 +132,16 @@ test.cb('when pass an array containing async and sync rules, and all rules valid
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(30, undefined, result => {
-		t.is(result.isValid, true);
-		t.end();
+		t.equal(result.isValid, true);
 	});
 });
 
-test.cb('when pass an array containing async and sync rules, and sync rule invalidates', t => {
+test('when pass an array containing async and sync rules, and sync rule invalidates', t => {
+	t.plan(3);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -148,16 +158,17 @@ test.cb('when pass an array containing async and sync rules, and sync rule inval
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(10, undefined, result => {
-		t.is(result.isValid, false);
-		t.is(result.message, 'Message 2');
-		t.end();
+		t.equal(result.isValid, false);
+		t.equal(result.message, 'Message 2');
 	});
 });
 
-test.cb('when pass an array containing async and sync rules, and last async rule invalidates', t => {
+test('when pass an array containing async and sync rules, and last async rule invalidates', t => {
+	t.plan(3);
+
 	const actual = chainValidationRules([
 		{
 			async: true,
@@ -174,11 +185,10 @@ test.cb('when pass an array containing async and sync rules, and last async rule
 		}
 	]);
 
-	t.is('function', typeof actual.validator);
+	t.equal('function', typeof actual.validator);
 
 	actual.validator(6, undefined, result => {
-		t.is(result.isValid, false);
-		t.is(result.message, 'Message 3');
-		t.end();
+		t.equal(result.isValid, false);
+		t.equal(result.message, 'Message 3');
 	});
 });
