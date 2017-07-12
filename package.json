@@ -8,7 +8,8 @@
     "lint": "standard",
     "pretest": "npm run lint",
     "test": "tape -r babel-register test/**/*.test.js | faucet",
-    "build": "babel index.js -d dist"
+    "build": "babel index.js -d dist",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -37,5 +38,8 @@
     "faucet": "0.0.1",
     "standard": "^10.0.2",
     "tape": "^4.7.0"
+  },
+  "standard": {
+    "ignore": "dist/**/*.js"
   }
 }
