@@ -1,6 +1,6 @@
 {
   "name": "chain-ko-validation-rules",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Chain knockout.js validation rules, ensuring their sequential execution",
   "main": "dist/index.js",
   "module": "index.js",
