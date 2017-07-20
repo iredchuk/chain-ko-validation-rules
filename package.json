@@ -9,7 +9,7 @@
     "pretest": "npm run lint",
     "test": "tape -r babel-register test/**/*.test.js | faucet",
     "build": "babel index.js -d dist",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
